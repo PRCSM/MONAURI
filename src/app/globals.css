@@ -1,0 +1,214 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-background: #ffffff;
+  --color-foreground: #333333;
+  --color-ink: #1f1f1f;
+  --color-pearl: #e9eaee;
+  --color-ivory: #f7f7f7;
+  --color-muted: #f1f1f1;
+  --color-secondary: #7b7b7b;
+  --color-subtle: #dedede;
+  --color-gold: #c3ad7c;
+  --color-stone: #d0ccc4;
+
+  --font-sans: 'Manrope Variable', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-serif: 'Cormorant Garamond', 'Times New Roman', serif;
+
+  --ease-lux: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root {
+  --gutter: clamp(16px, 1.7vw, 32px);
+  --tile-gap: clamp(4px, 0.55vw, 8px);
+  --header-h: clamp(56px, 4.6vw, 76px);
+}
+
+html {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  overflow-x: clip;
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+/* Custom scrollbar active: hide the native bar visually (scrolling itself stays native) */
+html.has-custom-scrollbar {
+  scrollbar-width: none;
+}
+html.has-custom-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+::selection {
+  background: #e7e1d3;
+  color: #1f1f1f;
+}
+
+:focus-visible {
+  outline: 1px solid #1f1f1f;
+  outline-offset: 3px;
+}
+
+@layer components {
+  .wrap {
+    padding-inline: var(--gutter);
+  }
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-secondary);
+  }
+  .link-underline {
+    position: relative;
+    display: inline-block;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    text-decoration-color: currentColor;
+    transition: color 0.4s var(--ease-lux), text-decoration-color 0.4s var(--ease-lux);
+  }
+  .link-underline:hover {
+    text-decoration-color: transparent;
+  }
+  .link-quiet {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    transition: background-size 0.5s var(--ease-lux);
+  }
+  .link-quiet:hover,
+  .link-quiet:focus-visible {
+    background-size: 100% 1px;
+  }
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    height: 48px;
+    padding-inline: 28px;
+    border: 1px solid #1f1f1f;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    transition: background-color 0.4s var(--ease-lux), color 0.4s var(--ease-lux);
+  }
+  .btn-outline:hover:not(:disabled) {
+    background: #1f1f1f;
+    color: #fff;
+  }
+  .btn-solid {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    height: 52px;
+    padding-inline: 28px;
+    background: #1f1f1f;
+    color: #fff;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    transition: background-color 0.4s var(--ease-lux);
+  }
+  .btn-solid:hover:not(:disabled) {
+    background: #444;
+  }
+  .btn-solid:disabled,
+  .btn-outline:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  .field {
+    width: 100%;
+    height: 48px;
+    border: 0;
+    border-bottom: 1px solid var(--color-subtle);
+    background: transparent;
+    font-size: 15px;
+    padding: 0;
+    transition: border-color 0.3s;
+  }
+  .field:focus {
+    outline: none;
+    border-bottom-color: #1f1f1f;
+  }
+  .field[aria-invalid='true'] {
+    border-bottom-color: #9b3b3b;
+  }
+  .prose-lux p {
+    margin-bottom: 1.1em;
+    line-height: 1.75;
+    color: #555;
+  }
+  .prose-lux h2 {
+    font-size: clamp(20px, 1.7vw, 26px);
+    font-weight: 300;
+    color: #1f1f1f;
+    margin: 2.2em 0 0.8em;
+  }
+  .prose-lux ul {
+    list-style: none;
+    margin-bottom: 1.2em;
+  }
+  .prose-lux li {
+    position: relative;
+    padding-left: 1.2em;
+    line-height: 1.75;
+    color: #555;
+  }
+  .prose-lux li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.85em;
+    width: 6px;
+    height: 1px;
+    background: #999;
+  }
+}
+
+/* Skeleton shimmer for loading states */
+.skeleton {
+  background: linear-gradient(90deg, #f3f3f3 0%, #ebebeb 50%, #f3f3f3 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
