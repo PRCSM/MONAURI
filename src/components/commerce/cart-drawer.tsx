@@ -27,7 +27,6 @@ export function CartDrawer() {
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
       tl.current = gsap
         .timeline({ paused: true, defaults: { ease: 'power3.out', duration: reduce ? 0.01 : 0.7 } })
-        .set(root.current, { autoAlpha: 1 })
         .fromTo('[data-cart-scrim]', { opacity: 0 }, { opacity: 1, duration: reduce ? 0.01 : 0.5 }, 0)
         .fromTo('[data-cart-panel]', { xPercent: 100 }, { xPercent: 0 }, 0)
     },
@@ -35,11 +34,15 @@ export function CartDrawer() {
   )
   useGSAP(() => {
     if (!tl.current) return
+    const tl_ = tl.current
     if (isOpen) {
+      tl_.eventCallback('onReverseComplete', null)
       gsap.set(root.current, { autoAlpha: 1 })
-      tl.current.timeScale(1).play()
+      tl_.timeScale(1).play()
+    } else if (tl_.progress() > 0) {
+      tl_.eventCallback('onReverseComplete', () => gsap.set(root.current, { autoAlpha: 0 }))
+      tl_.timeScale(1.6).reverse()
     }
-    else tl.current.timeScale(1.6).reverse()
   }, [isOpen])
 
   return (
