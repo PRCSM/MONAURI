@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: PageProps<'/collections/[slug
     title: `${c.name} Collection`,
     description: c.description,
     alternates: { canonical: `/collections/${c.slug}` },
-    openGraph: { images: [{ url: c.image.src, alt: c.image.alt }] },
+    openGraph: { type: 'website', siteName: 'MONAURI', url: `/collections/${c.slug}`, title: `${c.name} Collection — MONAURI`, description: c.description, images: [{ url: c.image.src, alt: c.image.alt }] },
   }
 }
 

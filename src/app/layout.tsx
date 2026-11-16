@@ -19,14 +19,21 @@ export const metadata: Metadata = {
   title: { default: 'MONAURI — Fine Jewelry', template: '%s — MONAURI' },
   description: SITE.description,
   alternates: { canonical: '/' },
+  applicationName: 'MONAURI',
   openGraph: {
     type: 'website',
     siteName: SITE.name,
+    locale: 'en_US',
     title: 'MONAURI — Jewelry that feels like you',
     description: SITE.description,
-    images: [{ url: '/og.jpg', width: 1200, height: 630, alt: 'A white calla lily with a champagne pear-cut ring on its stem' }],
+    images: [{ url: '/og.jpg?v=2', width: 1200, height: 630, type: 'image/jpeg', alt: 'MONAURI — a white calla lily with a champagne pear-cut ring on its stem' }],
   },
-  twitter: { card: 'summary_large_image' },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'MONAURI — Jewelry that feels like you',
+    description: SITE.description,
+    images: ['/og.jpg?v=2'],
+  },
 }
 
 export const viewport: Viewport = {

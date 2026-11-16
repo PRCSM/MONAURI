@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: PageProps<'/product/[slug]'>)
     title: p.name,
     description: p.description,
     alternates: { canonical: `/product/${p.slug}` },
-    openGraph: { title: `${p.name} — MONAURI`, description: p.description, images: [{ url: p.images[0].src, alt: p.images[0].alt }] },
+    openGraph: { type: 'website', siteName: 'MONAURI', url: `/product/${p.slug}`, title: `${p.name} — MONAURI`, description: p.description, images: [{ url: p.images[0].src, alt: p.images[0].alt }] },
   }
 }
 
